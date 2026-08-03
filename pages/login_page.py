@@ -1,23 +1,21 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-class Login_page():
-    def __init__(self):
-        self.url = 'https://demoqa.com/login'
-        self.driver = webdriver.Firefox()
+class LoginPage():
+    URL = 'https://demoqa.com/login'
+
+    def __init__(self, driver):
+        self.driver = driver
 
     def setup(self):
         self.driver.get(self.url)
-        self.username_input = self.driver.find_element(by=By.ID, value='userName')
-        self.password_input = self.driver.find_element(by=By.ID, value='password')
-        self.login_button = self.driver.find_element(by=By.ID, value='login')
 
         return self.driver
 
     def login(self, username: str, password: str):
-        self.username_input.send_keys(username)
-        self.password_input.send_keys(password)
-        self.login_button.click()
+        self.driver.find_element(By.ID, value='userName').send_keys(username)
+        self.driver.find_element(By.ID, value='password').send_keys(password)
+        self.driver.find_element(By.ID, value='login').click()
 
-    def teardown(self):
-        self.driver.quit()
+    def error_login_message(self):
+        return self.driver.find_element(By.ID, value='Invalid username or password!').text

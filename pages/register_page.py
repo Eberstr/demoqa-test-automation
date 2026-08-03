@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-class Register_page():
+class RegisterPage():
     def __init__(self):
         self.url = 'https://demoqa.com/register'
         self.driver = webdriver.Firefox()
