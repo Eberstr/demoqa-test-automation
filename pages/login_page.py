@@ -8,7 +8,7 @@ class LoginPage():
         self.driver = driver
 
     def setup(self):
-        self.driver.get(self.url)
+        self.driver.get(self.URL)
 
         return self.driver
 

@@ -1,5 +1,5 @@
 import pytest
-from pages.login_page import Login_page
+from pages.login_page import LoginPage
 from selenium import webdriver
 
 def test_login_correct_credentials():
