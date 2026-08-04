@@ -13,6 +13,6 @@ def driver():
 def registered_user():
     fake = Faker()
     username = fake.user_name()
-    password = "P@ssw0rd123."
+    password = fake.password()
     response = requests.post('https://demoqa.com/Account/v1/User', json={'userName': username, 'password': password})
     return {'username': username, 'password': password}
