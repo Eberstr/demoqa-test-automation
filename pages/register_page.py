@@ -1,9 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 class RegisterPage():
     URL = 'https://demoqa.com/register'
-
+    TIMEOUT = 10
+    FIRSTNAME = (By.ID, 'firstname')
+    LASTNAME = (By.ID, 'lastname')
+    USERNAME = (By.ID, 'username')
+    PASSWORD = (By.ID, 'password')
+    REGISTER_BUTTON = (By.ID, 'register')
+    ERROR_PASSWORD_MESSAGE = (By.ID, 'name')
 
     def __init__(self, driver):
         self.driver = driver
@@ -14,11 +22,13 @@ class RegisterPage():
         return self.driver
 
     def register(self, firstname: str, lastname: str, username: str, password: str):
-        self.driver.find_element(by=By.ID, value='firstname').send_keys(firstname)
-        self.driver.find_element(by=By.ID, value='lastname').send_keys(lastname)
-        self.driver.find_element(by=By.ID, value='userName').send_keys(username)
-        self.driver.find_element(by=By.ID, value='password').send_keys(password)
-        self.driver.find_element(by=By.ID, value='register').click()
+
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.FIRSTNAME)).send_keys(firstname)
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.LASTNAME)).send_keys(lastname)
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.USERNAME)).send_keys(username)
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.PASSWORD)).send_keys(password)
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.REGISTER_BUTTON)).click()
 
     def error_register_password_message(self):
-        return self.driver.find_element(By.ID, value='name').text
+        self.error_message = WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.ERROR_PASSWORD_MESSAGE))
+        return self.error_message.text

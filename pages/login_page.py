@@ -9,7 +9,7 @@ class LoginPage():
     USER = (By.ID, 'userName')
     PASSWD = (By.ID, 'password')
     LOGIN_BUTTON = (By.ID, 'login')
-    LOGIN_ERROR = (By.LINK_TEXT, 'Invalid username or password!')
+    LOGIN_ERROR = (By.ID, 'name')
     TIMEOUT = 20
 
     def __init__(self, driver):
