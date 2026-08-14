@@ -6,11 +6,12 @@ import time
 
 class LoginPage():
     URL = 'https://demoqa.com/login'
+    URL_PROFILE = 'https://demoqa.com/profile'
     USER = (By.ID, 'userName')
     PASSWD = (By.ID, 'password')
     LOGIN_BUTTON = (By.ID, 'login')
     LOGIN_ERROR = (By.ID, 'name')
-    TIMEOUT = 20
+    TIMEOUT = 10
 
     def __init__(self, driver):
         self.driver = driver
@@ -25,7 +26,9 @@ class LoginPage():
         WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.USER)).send_keys(username)
         WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.PASSWD)).send_keys(password)
         WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable(self.LOGIN_BUTTON)).click()
-        time.sleep(5)
+
+    def login_success(self):
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.url_to_be(self.URL_PROFILE))
 
     def error_login_message(self):
         self.login_error_message = WebDriverWait(self.driver, self.TIMEOUT).until(EC.visibility_of_element_located(self.LOGIN_ERROR))
